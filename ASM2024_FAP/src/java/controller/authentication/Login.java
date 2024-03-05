@@ -5,12 +5,16 @@
 
 package controller.authentication;
 
+import dal.AccountDBContext;
+import entity.Account;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 /**
  *
@@ -53,7 +57,7 @@ public class Login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        request.getRequestDispatcher("View/Authentication/Login.jsp").forward(request, response);
     } 
 
     /** 
@@ -66,7 +70,26 @@ public class Login extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+
+        AccountDBContext db = new AccountDBContext();
+        Account account = db.getByUsernamePassword(username, password);
+
+        if (account != null) {
+//            HttpSession session = request.getSession();
+//            session.setAttribute("account", account);
+//
+//            Cookie c_user = new Cookie("username", username);
+//            Cookie c_pass = new Cookie("password", password);
+//            c_user.setMaxAge(3600 * 24 * 7);
+//            c_pass.setMaxAge(3600 * 24 * 7);
+//            response.addCookie(c_pass);
+//            response.addCookie(c_user);
+            response.getWriter().println("Hello " + account.getName()+ ", login sucessful!");
+        } else {
+            response.getWriter().println("login failed");
+        }
     }
 
     /** 

@@ -23,5 +23,37 @@ public class Grade {
         this.Sid = Sid;
         this.Score = Score;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getEid() {
+        return Eid;
+    }
+
+    public void setEid(String Eid) {
+        this.Eid = Eid;
+    }
+
+    public String getSid() {
+        return Sid;
+    }
+
+    public void setSid(String Sid) {
+        this.Sid = Sid;
+    }
+
+    public int getScore() {
+        return Score;
+    }
+
+    public void setScore(int Score) {
+        this.Score = Score;
+    }
     
 }
