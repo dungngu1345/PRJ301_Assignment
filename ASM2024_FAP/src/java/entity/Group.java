@@ -9,7 +9,7 @@ package entity;
  * @author Admin
  */
 public class Group {
-    private String id;
+    private int id;
     private String GName;
     private String Subid;
     private String PIC;
