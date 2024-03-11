@@ -11,24 +11,24 @@ package entity;
 public class Group {
     private int id;
     private String GName;
-    private String Subid;
-    private String PIC;
+    private int Subid;
+    private int PIC;
 
-    public Group() {
-    }
-
-    public Group(String id, String GName, String Subid, String PIC) {
+    public Group(int id, String GName, int Subid, int PIC) {
         this.id = id;
         this.GName = GName;
         this.Subid = Subid;
         this.PIC = PIC;
     }
 
-    public String getId() {
+    public Group() {
+    }
+
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -40,20 +40,21 @@ public class Group {
         this.GName = GName;
     }
 
-    public String getSubid() {
+    public int getSubid() {
         return Subid;
     }
 
-    public void setSubid(String Subid) {
+    public void setSubid(int Subid) {
         this.Subid = Subid;
     }
 
-    public String getPIC() {
+    public int getPIC() {
         return PIC;
     }
 
-    public void setPIC(String PIC) {
+    public void setPIC(int PIC) {
         this.PIC = PIC;
     }
-    
+
+
 }
