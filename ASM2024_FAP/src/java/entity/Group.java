@@ -9,52 +9,61 @@ package entity;
  * @author Admin
  */
 public class Group {
-    private int id;
-    private String GName;
-    private int Subid;
-    private int PIC;
+    private String id;
+    private String gname;
+    private int subid;
+    private String lid ;
+    private Subject subject;
 
-    public Group(int id, String GName, int Subid, int PIC) {
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
         this.id = id;
-        this.GName = GName;
-        this.Subid = Subid;
-        this.PIC = PIC;
+    }
+
+    public String getGname() {
+        return gname;
+    }
+
+    public void setGname(String gname) {
+        this.gname = gname;
+    }
+
+    public int getSubid() {
+        return subid;
+    }
+
+    public void setSubid(int subid) {
+        this.subid = subid;
+    }
+
+    public String getLid() {
+        return lid;
+    }
+
+    public void setLid(String lid) {
+        this.lid = lid;
+    }
+
+    public Subject getSubject() {
+        return subject;
+    }
+
+    public void setSubject(Subject subject) {
+        this.subject = subject;
+    }
+
+    public Group(String id, String gname, int subid, String lid, Subject subject) {
+        this.id = id;
+        this.gname = gname;
+        this.subid = subid;
+        this.lid = lid;
+        this.subject = subject;
     }
 
     public Group() {
     }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getGName() {
-        return GName;
-    }
-
-    public void setGName(String GName) {
-        this.GName = GName;
-    }
-
-    public int getSubid() {
-        return Subid;
-    }
-
-    public void setSubid(int Subid) {
-        this.Subid = Subid;
-    }
-
-    public int getPIC() {
-        return PIC;
-    }
-
-    public void setPIC(int PIC) {
-        this.PIC = PIC;
-    }
-
 
 }

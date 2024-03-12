@@ -11,14 +11,7 @@ package entity;
 public class Subject {
     private String id;
     private String name;
-
-    public Subject() {
-    }
-
-    public Subject(String id, String name) {
-        this.id = id;
-        this.name = name;
-    }
+    private int credit;
 
     public String getId() {
         return id;
@@ -35,5 +28,22 @@ public class Subject {
     public void setName(String name) {
         this.name = name;
     }
-    
+
+    public int getCredit() {
+        return credit;
+    }
+
+    public void setCredit(int credit) {
+        this.credit = credit;
+    }
+
+    public Subject(String id, String name, int credit) {
+        this.id = id;
+        this.name = name;
+        this.credit = credit;
+    }
+
+    public Subject() {
+    }
+
 }

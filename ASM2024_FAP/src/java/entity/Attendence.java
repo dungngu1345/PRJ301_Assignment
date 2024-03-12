@@ -12,23 +12,11 @@ import java.util.Date;
  */
 public class Attendence {
     private int id;
-    private String Sesid;
+    private int leid;
     private String studentid;
     private boolean ispresent;
     private String Description;
     private Date Datetime;
-
-    public Attendence() {
-    }
-
-    public Attendence(int id, String Sesid, String studentid, boolean ispresent, String Description, Date Datetime) {
-        this.id = id;
-        this.Sesid = Sesid;
-        this.studentid = studentid;
-        this.ispresent = ispresent;
-        this.Description = Description;
-        this.Datetime = Datetime;
-    }
 
     public int getId() {
         return id;
@@ -38,12 +26,12 @@ public class Attendence {
         this.id = id;
     }
 
-    public String getSesid() {
-        return Sesid;
+    public int getLeid() {
+        return leid;
     }
 
-    public void setSesid(String Sesid) {
-        this.Sesid = Sesid;
+    public void setLeid(int leid) {
+        this.leid = leid;
     }
 
     public String getStudentid() {
@@ -77,5 +65,18 @@ public class Attendence {
     public void setDatetime(Date Datetime) {
         this.Datetime = Datetime;
     }
+
+    public Attendence(int id, int leid, String studentid, boolean ispresent, String Description, Date Datetime) {
+        this.id = id;
+        this.leid = leid;
+        this.studentid = studentid;
+        this.ispresent = ispresent;
+        this.Description = Description;
+        this.Datetime = Datetime;
+    }
+
+    public Attendence() {
+    }
+
     
 }

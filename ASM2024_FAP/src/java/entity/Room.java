@@ -9,41 +9,33 @@ package entity;
  * @author Admin
  */
 public class Room {
-    private String id;
-    private int Roomnumber;
-    private String Building;
+    private int id;
+    private String room;
 
     public Room() {
     }
 
-    public Room(String id, int Roomnumber, String Building) {
+    public Room(int id, String room) {
         this.id = id;
-        this.Roomnumber = Roomnumber;
-        this.Building = Building;
+        this.room = room;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public int getRoomnumber() {
-        return Roomnumber;
+    public String getRoom() {
+        return room;
     }
 
-    public void setRoomnumber(int Roomnumber) {
-        this.Roomnumber = Roomnumber;
-    }
-
-    public String getBuilding() {
-        return Building;
-    }
-
-    public void setBuilding(String Building) {
-        this.Building = Building;
+    public void setRoom(String room) {
+        this.room = room;
     }
     
+
+   
 }
