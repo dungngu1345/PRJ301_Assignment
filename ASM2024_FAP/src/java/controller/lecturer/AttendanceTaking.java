@@ -5,9 +5,11 @@
 
 package controller.lecturer;
 
-import dal.SessionDBContext;
+import controller.authentication.BaseRequiredAuthenticationController;
+import dal.LessionDBContext;
+import entity.Account;
 import entity.Attendence;
-import entity.Session;
+import entity.Lession;
 import entity.Student;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -21,45 +23,33 @@ import java.util.ArrayList;
  *
  * @author Admin
  */
-public class AttendanceTaking extends HttpServlet {
-   
-
-
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-//        int leid = Integer.parseInt(request.getParameter("id"));
-        SessionDBContext db = new SessionDBContext();
+public class AttendanceTaking extends BaseRequiredAuthenticationController {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp, Account account) throws ServletException, IOException {
+        int leid = Integer.parseInt(req.getParameter("id"));
+        LessionDBContext db = new LessionDBContext();
         ArrayList<Student> students = db.getStudentsByLession(leid);
         ArrayList<Attendence> atts = new ArrayList<>();
-        Session lession = new Session();
-        Session.setId(leid);
+        Lession lession = new Lession();
+        lession.setId(leid);
         for (Student student : students) {
             Attendence a = new Attendence();
             a.setLession(lession);
             a.setStudent(student);
             a.setDescription(req.getParameter("description"+student.getId()));
-            a.setPresent(req.getParameter("present"+student.getId()).equals("yes"));
+            a.setIspresent(req.getParameter("present"+student.getId()).equals("yes"));
             atts.add(a);
         }
-        db.takeAttendances(leid, atts);
+        db.getAttendenceby(leid, atts);
         resp.sendRedirect("att?id="+leid);
     }
-    } 
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        processRequest(request, response);
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp, Account account) throws ServletException, IOException {
+        int leid = Integer.parseInt(req.getParameter("id"));
+        LessionDBContext db = new LessionDBContext();
+        ArrayList<Attendence> atts = db.getAttendencesByLession(leid);
+        req.setAttribute("atts", atts);
+        req.getRequestDispatcher("../view/lecturer/att.jsp").forward(req, resp);
+    
     }
-
-    /** 
-     * Returns a short description of the servlet.
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
+   
 }

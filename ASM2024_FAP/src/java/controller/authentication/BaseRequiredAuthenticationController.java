@@ -5,10 +5,13 @@
 
 package controller.authentication;
 
+import dal.AccountDBContext;
+import entity.Account;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -18,66 +21,69 @@ import jakarta.servlet.http.HttpServletResponse;
  * @author Admin
  */
 @WebServlet(name="BaseRequiredAuthenticationController", urlPatterns={"/baserequiredauthenticationcontroller"})
-public class BaseRequiredAuthenticationController extends HttpServlet {
-   
-    /** 
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet BaseRequiredAuthenticationController</title>");  
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet BaseRequiredAuthenticationController at " + request.getContextPath () + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+public abstract class BaseRequiredAuthenticationController extends HttpServlet {
+    
+    private Account getAuthenticatedAccount(HttpServletRequest req)
+    {
+      Account account = (Account) req.getSession().getAttribute("account");
+      if(account == null)
+      {
+          Cookie[] cookies = req.getCookies();
+          if(cookies!=null)
+          {
+              String username = null;
+              String password = null;
+              for (Cookie cooky : cookies) {
+                  if(cooky.getName().equals("username"))
+                      username = cooky.getValue();
+                  
+                  if(cooky.getName().equals("password"))
+                      password = cooky.getValue();
+                  
+                  if(username !=null && password!=null)
+                      break;
+              }
+              
+              if(username !=null && password!=null)
+              {
+                  AccountDBContext db = new AccountDBContext();
+                  account = db.getByUsernamePassword(username, password);
+                  req.getSession().setAttribute("account", account);
+              }
+          }
+      }
+      return account;
+    }
+    
+    protected abstract void doPost(HttpServletRequest req, HttpServletResponse resp, Account account)
+            throws ServletException, IOException; 
+    
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Account account = getAuthenticatedAccount(req);
+        if(account!=null)
+        {
+            doPost(req, resp, account);
         }
-    } 
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /** 
-     * Handles the HTTP <code>GET</code> method.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        processRequest(request, response);
-    } 
-
-    /** 
-     * Handles the HTTP <code>POST</code> method.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        processRequest(request, response);
+        else
+        {
+            resp.getWriter().println("access denied!");
+        }
+    
     }
 
-    /** 
-     * Returns a short description of the servlet.
-     * @return a String containing servlet description
-     */
+    protected abstract void doGet(HttpServletRequest req, HttpServletResponse resp, Account account)
+            throws ServletException, IOException; 
     @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    Account account = getAuthenticatedAccount(req);
+        if(account!=null)
+        {
+            doGet(req, resp, account);
+        }
+        else
+        {
+            resp.getWriter().println("access denied!");
+        }
+    }
 }
