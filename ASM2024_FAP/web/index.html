@@ -1,15 +1,63 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit this template
--->
 <html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>JSP Page</title>
+    <style>
+        /* Add your CSS here to style the table to match the provided image */
+    </style>
+</head>
+<body>
+<form action="timetable" method="GET">
+    <input type="hidden" value="${param.id}" name="id"/>
+    From: <input type="date" name="from" value="${requestScope.from}"/> -
+    To: <input type="date" name="to" value="${requestScope.to}"/>
+    <input type="submit" value="View"/>
+</form>
+<table border="1px">
+    <tr>
+        <th colspan="${fn:length(requestScope.dates) + 1}">YEAR 2024</th>
+    </tr>
+    <tr>
+        <th colspan="2">WEEK</th>
+        <c:forEach items="${requestScope.dates}" var="d">
+            <th colspan="2">
+                ${d} (<fmt:formatDate pattern="E" value="${d}" />)
+            </th>
+        </c:forEach>
+    </tr>
+    <c:forEach items="${requestScope.slots}" var="slot">
+        <tr>
+            <td>${slot.name}</td>
+            <c:forEach items="${requestScope.dates}" var="date" begin="0" end="${fn:length(requestScope.dates)-1}">
+                <c:set var="colspan" value="${date % 7 == 6 ? 2 : 1}" />
+                <td colspan="${colspan}">
+                    <c:forEach items="${requestScope.lessions}" var="les">
+                        <c:if test="${les.date eq d and les.slot.id eq slot.id}">
+                            <div class="${les.attended ? 'attended' : 'not-attended'}">
+                                ${les.group.name} - ${les.group.subject.name}
+                                <a href="att?id=${les.id}">
+                                    <c:choose>
+                                        <c:when test="${les.attended}">Edit</c:when>
+                                        <c:otherwise>Take</c:otherwise>
+                                    </c:choose>
+                                </a>
+                                <!-- Handle ChangeRoom and Online indicators here as needed -->
+                            </div>
+                        </c:if>
+                    </c:forEach>
+                    <!-- Conditionally render the 'Online' indicator -->
+                    <c:if test="${slot.name eq 'Online'}">
+                        <div class="online">Online</div>
+                    </c:if>
+                </td>
+                <c:if test="${date % 7 == 6}">
+                    <td></td> <!-- Empty cell for the Sunday column -->
+                </c:if>
+            </c:forEach>
+        </tr>
+    </c:forEach>
+</table>
+</body>
 </html>

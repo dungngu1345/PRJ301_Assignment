@@ -21,7 +21,7 @@ public class TimeSlotDBContext extends DBContext<TimeSlot> {
         ArrayList<TimeSlot> slots = new ArrayList<>();
         try {
 
-            String sql = "SELECT tid,Note FROM [Time Slot]";
+            String sql = "select tid,tname from TimeSlot";
             PreparedStatement stm = connection.prepareStatement(sql);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {

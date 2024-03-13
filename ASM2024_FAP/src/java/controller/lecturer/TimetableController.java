@@ -76,7 +76,7 @@ public class TimetableController extends BaseRequiredAuthenticationController {
         req.setAttribute("to", to);
         req.setAttribute("lessions", lessions);
         
-        req.getRequestDispatcher("../view/lecturer/timetable.jsp").forward(req, resp);
+        req.getRequestDispatcher("../View/TimeTable/TimeTable.jsp").forward(req, resp);
         
     }
 
