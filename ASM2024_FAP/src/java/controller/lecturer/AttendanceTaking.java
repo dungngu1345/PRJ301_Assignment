@@ -48,7 +48,7 @@ public class AttendanceTaking extends BaseRequiredAuthenticationController {
         LessionDBContext db = new LessionDBContext();
         ArrayList<Attendence> atts = db.getAttendencesByLession(leid);
         req.setAttribute("atts", atts);
-        req.getRequestDispatcher("../view/lecturer/att.jsp").forward(req, resp);
+        req.getRequestDispatcher("View/AttendanceTaking/AttendanceTaking.jsp").forward(req, resp);
     
     }
    
