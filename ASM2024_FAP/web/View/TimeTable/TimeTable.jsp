@@ -3,7 +3,8 @@
     Created on : Mar 13, 2024, 1:49:34 PM
     Author     : Admin
 --%>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -13,13 +14,12 @@
     <body>
         <form action="timetable" method="GET">
             <input type="hidden" value="${param.id}" name="id"/>
-            From: <input type="date" name="from" value="${requestScope.from}"/> -
-            <input type="date" name="to" value="${requestScope.to}"/>
-            <input type="submit" value="View"/>
         </form>
         <table border="1px">
             <tr>
-                <td></td>
+                <td>From: <input type="date" name="from" value="${requestScope.from}"/> -
+            <input type="date" name="to" value="${requestScope.to}"/>
+            <input type="submit" value="View"/></td>
                 <c:forEach items="${requestScope.dates}" var="d">
                     <td>
                 (<fmt:formatDate pattern="E" value="${d}" />)

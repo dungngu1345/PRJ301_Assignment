@@ -58,6 +58,7 @@ public class Login extends HttpServlet {
             response.addCookie(c_user);
             
             response.getWriter().println("Hello " + account.getName()+ ", login sucessful!");
+
         } else {
             response.getWriter().println("login failed");
         }
