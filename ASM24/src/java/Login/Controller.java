@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package controller.lecturer;
+package Login;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -16,7 +16,7 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author Admin
  */
-public class AttendanceTaking extends HttpServlet {
+public class Controller extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -33,10 +33,10 @@ public class AttendanceTaking extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AttendanceTaking</title>");  
+            out.println("<title>Servlet Controller</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AttendanceTaking at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet Controller at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
