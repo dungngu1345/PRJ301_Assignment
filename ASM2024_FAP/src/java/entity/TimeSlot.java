@@ -10,15 +10,7 @@ package entity;
  */
 public class TimeSlot {
     private int id;
-    private String note;
-
-    public TimeSlot() {
-    }
-
-    public TimeSlot(int id, String note) {
-        this.id = id;
-        this.note = note;
-    }
+    private String name;
 
     public int getId() {
         return id;
@@ -28,13 +20,20 @@ public class TimeSlot {
         this.id = id;
     }
 
-    public String getNote() {
-        return note;
+    public String getName() {
+        return name;
     }
 
-    public void setNote(String note) {
-        this.note = note;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    
+    public TimeSlot(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public TimeSlot() {
+    }
+
 }

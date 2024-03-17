@@ -11,22 +11,15 @@ import java.util.ArrayList;
  * @author Admin
  */
 public class Student {
-   private String id;
+    private int id;
     private String name;
+    private ArrayList<StudentGroup> groups = new ArrayList<>();
 
-    public Student() {
-    }
-
-    public Student(String id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -38,14 +31,20 @@ public class Student {
         this.name = name;
     }
 
-    public ArrayList<Group> getGroups() {
+    public ArrayList<StudentGroup> getGroups() {
         return groups;
     }
 
-    public void setGroups(ArrayList<Group> groups) {
+    public void setGroups(ArrayList<StudentGroup> groups) {
         this.groups = groups;
     }
-    
-    
-    private ArrayList<Group> groups = new ArrayList<>();
+
+    public Student(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public Student() {
+    }
+
 }

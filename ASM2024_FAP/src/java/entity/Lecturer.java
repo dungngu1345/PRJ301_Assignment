@@ -9,22 +9,22 @@ package entity;
  * @author Admin
  */
 public class Lecturer {
-    private String id;
+    private int id;
     private String name;
 
     public Lecturer() {
     }
 
-    public Lecturer(String id, String name) {
+    public Lecturer(int id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -35,5 +35,6 @@ public class Lecturer {
     public void setName(String name) {
         this.name = name;
     }
-    
+
+
 }

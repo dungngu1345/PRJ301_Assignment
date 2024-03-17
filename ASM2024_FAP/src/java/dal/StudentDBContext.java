@@ -29,7 +29,7 @@ public class StudentDBContext extends  DBContext<Student>{
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 Student s = new Student();
-                s.setId(rs.getString("sid"));
+                s.setId(rs.getInt("sid"));
                 students.add(s);
             }
 

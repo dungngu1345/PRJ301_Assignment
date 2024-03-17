@@ -1,6 +1,7 @@
 package controller.authentication;
 
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -10,18 +11,24 @@ import java.io.IOException;
 public class LogoutServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Lấy session hiện tại
         HttpSession session = request.getSession(false);
-        // Kiểm tra nếu session tồn tại, xóa thông tin đăng nhập
         if (session != null) {
-            session.invalidate(); // Xóa session, đăng xuất người dùng
+            session.invalidate();
         }
-        // Chuyển hướng người dùng về trang đăng nhập hoặc trang chủ
-        response.sendRedirect("login.jsp"); // Giả sử trang đăng nhập là login.jsp
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                cookie.setMaxAge(0);
+                cookie.setValue(null);
+                cookie.setPath("/");
+                response.addCookie(cookie);
+            }
+        }
+        response.sendRedirect("login.jsp"); 
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        doGet(request, response); // Gọi doGet nếu bạn muốn xử lý đăng xuất trong cả POST
+        doGet(request, response); 
     }
 }

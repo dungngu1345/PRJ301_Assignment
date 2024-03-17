@@ -52,8 +52,8 @@ public class Login extends HttpServlet {
             
             Cookie c_user = new Cookie("username", username);
             Cookie c_pass = new Cookie("password", password);
-            c_user.setMaxAge(3600*30);
-            c_pass.setMaxAge(3600*30);
+            c_user.setMaxAge(3600*2);
+            c_pass.setMaxAge(3600*2);
             response.addCookie(c_pass);
             response.addCookie(c_user);
             

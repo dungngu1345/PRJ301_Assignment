@@ -12,11 +12,23 @@ import java.util.Date;
  */
 public class Attendence {
     private int id;
-    private int leid;
-    private String studentid;
-    private boolean ispresent;
-    private String Description;
-    private Date Datetime;
+    private Student student;
+    private Lession lession;
+    private String description;
+    private boolean present;
+    private Date time;
+
+    public Attendence() {
+    }
+
+    public Attendence(int id, Student student, Lession lession, String description, boolean present, Date time) {
+        this.id = id;
+        this.student = student;
+        this.lession = lession;
+        this.description = description;
+        this.present = present;
+        this.time = time;
+    }
 
     public int getId() {
         return id;
@@ -26,65 +38,44 @@ public class Attendence {
         this.id = id;
     }
 
-    public int getLeid() {
-        return leid;
+    public Student getStudent() {
+        return student;
     }
 
-    public void setLeid(int leid) {
-        this.leid = leid;
+    public void setStudent(Student student) {
+        this.student = student;
     }
 
-    public String getStudentid() {
-        return studentid;
+    public Lession getLession() {
+        return lession;
     }
 
-    public void setStudentid(String studentid) {
-        this.studentid = studentid;
-    }
-
-    public boolean isIspresent() {
-        return ispresent;
-    }
-
-    public void setIspresent(boolean ispresent) {
-        this.ispresent = ispresent;
+    public void setLession(Lession lession) {
+        this.lession = lession;
     }
 
     public String getDescription() {
-        return Description;
+        return description;
     }
 
-    public void setDescription(String Description) {
-        this.Description = Description;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public Date getDatetime() {
-        return Datetime;
+    public boolean isPresent() {
+        return present;
     }
 
-    public void setDatetime(Date Datetime) {
-        this.Datetime = Datetime;
+    public void setPresent(boolean present) {
+        this.present = present;
     }
 
-    public Attendence(int id, int leid, String studentid, boolean ispresent, String Description, Date Datetime) {
-        this.id = id;
-        this.leid = leid;
-        this.studentid = studentid;
-        this.ispresent = ispresent;
-        this.Description = Description;
-        this.Datetime = Datetime;
+    public Date getTime() {
+        return time;
     }
 
-    public Attendence() {
+    public void setTime(Date time) {
+        this.time = time;
     }
-
-    public void setStudent(Student s) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    public void setLession(Lession les) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    
+  
 }

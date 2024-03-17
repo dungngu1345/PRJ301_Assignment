@@ -41,12 +41,12 @@ public class LessionDBContext extends DBContext<Lession>{
                         + ",[description]\n"
                         + ",[isPresent]\n"
                         + ",[capturedtime])\n"
-                        + "VALUES (?,?,?,?,?,GETDATE())";
+                        + "VALUES (?,?,?,?,GETDATE())";
                 PreparedStatement stm_insert_att = connection.prepareStatement(sql_insert_att);
                 stm_insert_att.setInt(1, leid);
-                stm_insert_att.setString(2, att.getStudentid());
+                stm_insert_att.setInt(2, att.getId());
                 stm_insert_att.setString(3, att.getDescription());
-                stm_insert_att.setBoolean(4, att.isIspresent());
+                stm_insert_att.setBoolean(4, att.isPresent());
                 stm_insert_att.executeUpdate();
             }
 
@@ -86,7 +86,7 @@ public class LessionDBContext extends DBContext<Lession>{
             while(rs.next())
             {
                 Student s = new Student();
-                s.setId(rs.getString("sid"));
+                s.setId(rs.getInt("sid"));
                 s.setName(rs.getString("sname"));
                 students.add(s);
             }
@@ -114,7 +114,7 @@ public class LessionDBContext extends DBContext<Lession>{
                 Attendence a = new Attendence();
                 Student s = new Student();
                 Lession les = new Lession();
-                s.setId(rs.getString("sid"));
+                s.setId(rs.getInt("sid"));
                 s.setName(rs.getString("sname"));
                 a.setStudent(s);
 
@@ -124,8 +124,8 @@ public class LessionDBContext extends DBContext<Lession>{
                 a.setId(rs.getInt("aid"));
                 if (a.getId() != 0) {
                     a.setDescription(rs.getString("description"));
-                    a.setIspresent(rs.getBoolean("isPresent"));
-                    a.setDatetime(rs.getTimestamp("time"));
+                    a.setPresent(rs.getBoolean("isPresent"));
+                    a.setTime(rs.getTimestamp("time"));
                 }
                 atts.add(a);
             }
