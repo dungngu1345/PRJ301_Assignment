@@ -5,8 +5,8 @@
 package dal;
 
 import entity.Attendence;
-import entity.Group;
-import entity.Lectuer;
+import entity.StudentGroup;
+import entity.Lecturer;
 import entity.Lession;
 import entity.Room;
 import entity.Student;
@@ -36,17 +36,12 @@ public class LessionDBContext extends DBContext<Lession>{
 
             for (Attendence att : atts) {
                 String sql_insert_att = "INSERT INTO [Attendence]\n"
-                        + "           ([leid]\n"
-                        + "           ,[sid]\n"
-                        + "           ,[description]\n"
-                        + "           ,[isPresent]\n"
-                        + "           ,[capturedtime])\n"
-                        + "     VALUES\n"
-                        + "           (?\n"
-                        + "           ,?\n"
-                        + "           ,?\n"
-                        + "           ,?\n"
-                        + "           ,GETDATE())";
+                        + ",[leid]\n"
+                        + ",[sid]\n"
+                        + ",[description]\n"
+                        + ",[isPresent]\n"
+                        + ",[capturedtime])\n"
+                        + "VALUES (?,?,?,?,?,GETDATE())";
                 PreparedStatement stm_insert_att = connection.prepareStatement(sql_insert_att);
                 stm_insert_att.setInt(1, leid);
                 stm_insert_att.setString(2, att.getStudentid());
@@ -82,8 +77,8 @@ public class LessionDBContext extends DBContext<Lession>{
             String sql = "SELECT \n"
                     + "s.sid,s.sname\n"
                     + "FROM Student s INNER JOIN Enrollment e ON s.sid = e.sid\n"
-                    + "						INNER JOIN StudentGroup g ON g.gid = e.gid\n"
-                    + "						INNER JOIN Lession les ON les.gid = g.gid\n"
+                    + "INNER JOIN StudentGroup g ON g.gid = e.gid\n"
+                    + "INNER JOIN Lession les ON les.gid = g.gid\n"
                     + "WHERE les.leid = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, leid);
@@ -155,7 +150,7 @@ public class LessionDBContext extends DBContext<Lession>{
                     + "				INNER JOIN TimeSlot t ON t.tid = les.tid\n"
                     + "				INNER JOIN Room r ON r.rid = les.rid\n"
                     + "				INNER JOIN Lecturer l ON l.lid = les.lid\n"
-                    + "WHERE les.lid = ? AND les.[date] >= ? and les.[date]<=?";
+                    + "WHERE les.lid = ? AND les.[date] >= ? and les.[date] <= ?";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, lid);
             stm.setDate(2, from);
@@ -163,32 +158,32 @@ public class LessionDBContext extends DBContext<Lession>{
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 Lession les = new Lession();
-                Group g = new Group();
+                StudentGroup g = new StudentGroup();
                 Subject s = new Subject();
                 TimeSlot slot = new TimeSlot();
                 Room r = new Room();
-                Lectuer l = new Lectuer();
+                Lecturer l = new Lecturer();
 
                 les.setId(rs.getInt("leid"));
                 les.setAttended(rs.getBoolean("isAttended"));
                 les.setDate(rs.getDate("date"));
 
-                g.setId(rs.getString("gid"));
-                g.setGname(rs.getString("gname"));
+                g.setId(rs.getInt("gid"));
+                g.setName(rs.getString("gname"));
                 s.setId(rs.getString("subid"));
                 s.setName(rs.getString("suname"));
                 g.setSubject(s);
                 les.setGroup(g);
 
                 slot.setId(rs.getInt("tid"));
-                slot.setNote(rs.getString("tname"));
+                slot.setName(rs.getString("tname"));
                 les.setSlot(slot);
 
                 r.setId(rs.getInt("rid"));
                 r.setRoom(rs.getString("rname"));
                 les.setRoom(r);
 
-                l.setId(rs.getString("lid"));
+                l.setId(rs.getInt("lid"));
                 l.setName(rs.getString("lname"));
                 les.setLecturer(l);
 

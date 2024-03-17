@@ -15,11 +15,24 @@ public class Lession {
     private int id;
     private Date date;
     private boolean attended;
-    private Room room;
+    private StudentGroup group;
     private TimeSlot slot;
-    private Lectuer lecturer;
-    private Group group;
+    private Room room;
+    private Lecturer lecturer;
     private ArrayList<Attendence> atts = new ArrayList<>();
+
+    public Lession() {
+    }
+
+    public Lession(int id, Date date, boolean attended, StudentGroup group, TimeSlot slot, Room room, Lecturer lecturer) {
+        this.id = id;
+        this.date = date;
+        this.attended = attended;
+        this.group = group;
+        this.slot = slot;
+        this.room = room;
+        this.lecturer = lecturer;
+    }
 
     public int getId() {
         return id;
@@ -45,12 +58,12 @@ public class Lession {
         this.attended = attended;
     }
 
-    public Room getRoom() {
-        return room;
+    public StudentGroup getGroup() {
+        return group;
     }
 
-    public void setRoom(Room room) {
-        this.room = room;
+    public void setGroup(StudentGroup group) {
+        this.group = group;
     }
 
     public TimeSlot getSlot() {
@@ -61,20 +74,20 @@ public class Lession {
         this.slot = slot;
     }
 
-    public Lectuer getLecturer() {
+    public Room getRoom() {
+        return room;
+    }
+
+    public void setRoom(Room room) {
+        this.room = room;
+    }
+
+    public Lecturer getLecturer() {
         return lecturer;
     }
 
-    public void setLecturer(Lectuer lecturer) {
+    public void setLecturer(Lecturer lecturer) {
         this.lecturer = lecturer;
-    }
-
-    public Group getGroup() {
-        return group;
-    }
-
-    public void setGroup(Group group) {
-        this.group = group;
     }
 
     public ArrayList<Attendence> getAtts() {
@@ -84,6 +97,5 @@ public class Lession {
     public void setAtts(ArrayList<Attendence> atts) {
         this.atts = atts;
     }
-    
     
 }
