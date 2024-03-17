@@ -10,14 +10,14 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author sonnt
+ * @author admin
  */
 public abstract class DBContext<T> {
     protected Connection connection;
     public DBContext()
     {
         try {
-            String url = "jdbc:sqlserver://localhost:1433;databaseName=AssPRJ;encrypt=true;trustServerCertificate=true";
+            String url = "jdbc:sqlserver://localhost:1433;databaseName=AssignmentSP2024;encrypt=true;trustServerCertificate=true";
             String user = "sa";
             String pass = "123";
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");

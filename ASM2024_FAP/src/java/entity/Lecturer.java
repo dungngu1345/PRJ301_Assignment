@@ -8,9 +8,17 @@ package entity;
  *
  * @author Admin
  */
-public class Lectuer {
+public class Lecturer {
     private String id;
     private String name;
+
+    public Lecturer() {
+    }
+
+    public Lecturer(String id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 
     public String getId() {
         return id;
@@ -27,14 +35,5 @@ public class Lectuer {
     public void setName(String name) {
         this.name = name;
     }
-
-    public Lectuer(String id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
-    public Lectuer() {
-    }
-
-
+    
 }
