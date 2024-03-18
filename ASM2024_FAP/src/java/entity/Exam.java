@@ -11,51 +11,51 @@ import java.util.Date;
  * @author Admin
  */
 public class Exam {
-    private String id;
-    private int Aid;
-    private Date BeginDate;
-    private Date EndDate;
+    private int id;
+    private int aid;
+    private Date begin;
+    private Date end;
 
     public Exam() {
     }
 
-    public Exam(String id, int Aid, Date BeginDate, Date EndDate) {
+    public Exam(int id, int aid, Date begin, Date end) {
         this.id = id;
-        this.Aid = Aid;
-        this.BeginDate = BeginDate;
-        this.EndDate = EndDate;
+        this.aid = aid;
+        this.begin = begin;
+        this.end = end;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
     public int getAid() {
-        return Aid;
+        return aid;
     }
 
-    public void setAid(int Aid) {
-        this.Aid = Aid;
+    public void setAid(int aid) {
+        this.aid = aid;
     }
 
-    public Date getBeginDate() {
-        return BeginDate;
+    public Date getBegin() {
+        return begin;
     }
 
-    public void setBeginDate(Date BeginDate) {
-        this.BeginDate = BeginDate;
+    public void setBegin(Date begin) {
+        this.begin = begin;
     }
 
-    public Date getEndDate() {
-        return EndDate;
+    public Date getEnd() {
+        return end;
     }
 
-    public void setEndDate(Date EndDate) {
-        this.EndDate = EndDate;
+    public void setEnd(Date end) {
+        this.end = end;
     }
     
 }

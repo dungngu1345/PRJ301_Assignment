@@ -10,18 +10,18 @@ package entity;
  */
 public class Grade {
     private int id;
-    private String Eid;
-    private String Sid;
-    private int Score;
+    private int eid;
+    private int sid;
+    private int score;
 
     public Grade() {
     }
 
-    public Grade(int id, String Eid, String Sid, int Score) {
+    public Grade(int id, int eid, int sid, int score) {
         this.id = id;
-        this.Eid = Eid;
-        this.Sid = Sid;
-        this.Score = Score;
+        this.eid = eid;
+        this.sid = sid;
+        this.score = score;
     }
 
     public int getId() {
@@ -32,28 +32,28 @@ public class Grade {
         this.id = id;
     }
 
-    public String getEid() {
-        return Eid;
+    public int getEid() {
+        return eid;
     }
 
-    public void setEid(String Eid) {
-        this.Eid = Eid;
+    public void setEid(int eid) {
+        this.eid = eid;
     }
 
-    public String getSid() {
-        return Sid;
+    public int getSid() {
+        return sid;
     }
 
-    public void setSid(String Sid) {
-        this.Sid = Sid;
+    public void setSid(int sid) {
+        this.sid = sid;
     }
 
     public int getScore() {
-        return Score;
+        return score;
     }
 
-    public void setScore(int Score) {
-        this.Score = Score;
+    public void setScore(int score) {
+        this.score = score;
     }
     
 }

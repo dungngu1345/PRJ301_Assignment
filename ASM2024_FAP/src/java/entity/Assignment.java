@@ -10,18 +10,18 @@ package entity;
  */
 public class Assignment {
     private int id;
-    private String Subid;
-    private int Weight; 
-    private String Name;
+    private int subid;
+    private String wight; 
+    private String name;
 
     public Assignment() {
     }
 
-    public Assignment(int id, String Subid, int Weight, String Name) {
+    public Assignment(int id, int subid, String wight, String name) {
         this.id = id;
-        this.Subid = Subid;
-        this.Weight = Weight;
-        this.Name = Name;
+        this.subid = subid;
+        this.wight = wight;
+        this.name = name;
     }
 
     public int getId() {
@@ -32,28 +32,28 @@ public class Assignment {
         this.id = id;
     }
 
-    public String getSubid() {
-        return Subid;
+    public int getSubid() {
+        return subid;
     }
 
-    public void setSubid(String Subid) {
-        this.Subid = Subid;
+    public void setSubid(int subid) {
+        this.subid = subid;
     }
 
-    public int getWeight() {
-        return Weight;
+    public String getWight() {
+        return wight;
     }
 
-    public void setWeight(int Weight) {
-        this.Weight = Weight;
+    public void setWight(String wight) {
+        this.wight = wight;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
-    public void setName(String Name) {
-        this.Name = Name;
+    public void setName(String name) {
+        this.name = name;
     }
     
 }

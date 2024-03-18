@@ -16,6 +16,10 @@
         <servlet-name>AttendanceTaking</servlet-name>
         <servlet-class>controller.lecturer.AttendanceTaking</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ScoreController</servlet-name>
+        <servlet-class>controller.lecturer.ScoreController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -31,5 +35,9 @@
     <servlet-mapping>
         <servlet-name>AttendanceTaking</servlet-name>
         <url-pattern>/att</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ScoreController</servlet-name>
+        <url-pattern>/score</url-pattern>
     </servlet-mapping>
 </web-app>
