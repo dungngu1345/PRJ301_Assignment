@@ -21,10 +21,10 @@ public class GradeDBContext extends DBContext<Grade>{
     public ArrayList<Grade> getGradebyStudent(int sid) {
         ArrayList<Grade> grades = new ArrayList<>();
         try {
-            String sql = "select s.sid,s.sname,a.subid,a.name,a.wight,gra.score from Student s inner join Grade gra on s.sid = gra.sid\n" +
-"			  inner join Exam e on gra.eid = e.eid\n" +
-"			  inner join Assignment a on e.aid = a.aid\n" +
-"			  where s.sid = ?";
+            String sql = "select s.sid,s.sname,a.subid,a.name,a.wight,gra.score from Student s inner join Grade gra on s.sid = gra.sid\n"
+                    + "			  inner join Exam e on gra.eid = e.eid\n"
+                    + "			  inner join Assignment a on e.aid = a.aid\n"
+                    + "			  where s.sid = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1,sid);
             ResultSet rs = stm.executeQuery();
