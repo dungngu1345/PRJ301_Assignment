@@ -27,6 +27,8 @@ public class AccountDBContext extends DBContext<Account>{
             {
                 Account account = new Account();
                 account.setUsername(username);
+                account.setSid(rs.getInt("stu"));
+                account.setLid(rs.getInt("lec"));
                 account.setName(rs.getString("displayname"));
                 return account;
             }

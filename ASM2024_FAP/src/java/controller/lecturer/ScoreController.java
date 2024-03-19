@@ -7,10 +7,10 @@ package controller.lecturer;
 
 import controller.authentication.BaseRequiredAuthenticationController;
 import dal.GradeDBContext;
-import dal.LessionDBContext;
+import dal.StudentDBContext;
 import entity.Account;
 import entity.Grade;
-import entity.Lession;
+import entity.Student;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -29,16 +29,13 @@ public class ScoreController extends BaseRequiredAuthenticationController {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp, Account account) throws ServletException, IOException {
+        // Lấy sid từ request
         String studentidString = req.getParameter("sid");
         int studentid = Integer.parseInt(studentidString);
-        int subjectid = 0;
-        if (req.getParameter("subid") != null) {
-            subjectid = Integer.parseInt(req.getParameter("subid"));
-        }
-        GradeDBContext gra = new GradeDBContext();
-        ArrayList<Grade> gras = gra.getGradebyStudent(studentid);
-        req.setAttribute("score", gras);
+        GradeDBContext db = new GradeDBContext();
+        ArrayList<Grade> grades = db.getGradebyStudent(studentid);
+        req.setAttribute("grades", grades);
         req.getRequestDispatcher("View/Score/ViewScoreStudent.jsp").forward(req, resp);
     }
-
-}   
+}
+   

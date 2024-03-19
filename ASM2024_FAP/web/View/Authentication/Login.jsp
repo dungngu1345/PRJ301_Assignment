@@ -128,6 +128,7 @@
                 <input type="password" name="password" placeholder="Password" required>
             </div>
             <button type="submit">Đăng nhập</button>
+            <h5>${error}</h5>
         </form>
         <div class="footer">
             <p>© Powered by FPT | CMS | Library | books24x7</p>

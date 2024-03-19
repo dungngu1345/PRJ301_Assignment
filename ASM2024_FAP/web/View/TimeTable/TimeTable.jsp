@@ -11,20 +11,44 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <style>
+            .date{
+                margin-left: auto;
+            }
+            body {
+                display: flex;
+                justify-content: center;
+            }
+            table {
+                border-collapse: collapse; /* Optional: for better border appearance */
+            }
+            table, th, td {
+                border: 1px solid black;
+            }
+            th, td {
+                padding: 8px; /* Optional: for cell padding */
+            }
+            .firstrow{
+                background-color: blue;
+                color: white;
+            }
+        </style>
     </head>
     <body>
         <form action="timetable" method="GET">
+            <div class="date"><div/>
             <input type="hidden" value="${param.id}" name="id"/>
-            From: <input type="date" name="from" value="${requestScope.from}"/> -
-            <input type="date" name="to" value="${requestScope.to}"/>
+            From: <input type="date" name="from" value="${requestScope.from}"/> <br/>
+            To: <input type="date" name="to" value="${requestScope.to}"/>
             <input type="submit" value="View"/>
+            <div/>
         </form>
-        <table border="1px">
-            <tr>
+        <table>
+            <tr >
                 <td></td>
                 <c:forEach items="${requestScope.dates}" var="d">
-                    <td>
-                (<fmt:formatDate pattern="E" value="${d}" />)
+                    <td class="firstrow">
+                        (<fmt:formatDate pattern="E" value="${d}" />)
                         ${d}</td>
                 </c:forEach>
             </tr>
@@ -36,7 +60,6 @@
                             <c:forEach items="${requestScope.lessions}" var="les">
                                 <c:if test="${les.date eq d and les.slot.id eq slot.id}">
                                     ${les.group.name} - ${les.group.subject.name}
-                                   
                                     <a href="att?id=${les.id}">
                                         <c:if test="${les.attended}">Edit</c:if>
                                         <c:if test="${!les.attended}">Take</c:if>
@@ -50,4 +73,3 @@
         </table>
     </body>
 </html>
-

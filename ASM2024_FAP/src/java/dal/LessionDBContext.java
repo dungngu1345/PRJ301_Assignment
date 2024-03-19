@@ -36,17 +36,18 @@ public class LessionDBContext extends DBContext<Lession>{
 
             for (Attendence att : atts) {
                 String sql_insert_att = "INSERT INTO [Attendence]\n"
-                        + ",[leid]\n"
-                        + ",[sid]\n"
-                        + ",[description]\n"
-                        + ",[isPresent]\n"
-                        + ",[capturedtime])\n"
-                        + "VALUES (?,?,?,?,GETDATE())";
+                        + "                       ([aid],[leid]\n"
+                        + "                        ,[sid]\n"
+                        + "                        ,[description]\n"
+                        + "                        ,[isPresent]\n"
+                        + "                        ,[capturedtime])\n"
+                        + "                        VALUES (?,?,?,?,?,GETDATE())";
                 PreparedStatement stm_insert_att = connection.prepareStatement(sql_insert_att);
-                stm_insert_att.setInt(1, leid);
-                stm_insert_att.setInt(2, att.getId());
-                stm_insert_att.setString(3, att.getDescription());
-                stm_insert_att.setBoolean(4, att.isPresent());
+                stm_insert_att.setInt(1, att.getId());
+                stm_insert_att.setInt(2, leid);
+                stm_insert_att.setInt(3, att.getId());
+                stm_insert_att.setString(4, att.getDescription());
+                stm_insert_att.setBoolean(5, att.isPresent());
                 stm_insert_att.executeUpdate();
             }
 

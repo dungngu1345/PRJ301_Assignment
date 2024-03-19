@@ -42,11 +42,19 @@ public class Login extends HttpServlet {
             throws ServletException, IOException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-
+        
         AccountDBContext db = new AccountDBContext();
         Account account = db.getByUsernamePassword(username, password);
 
         if (account != null) {
+            if (account.getLid() == null) {
+                String stu = account.getSid();
+                request.setAttribute("stu", stu);
+            }
+            if (account.getSid()== null) {
+                String lec = account.getSid();
+                request.setAttribute("lec", lec);
+            }
             HttpSession session = request.getSession();
             session.setAttribute("account", account);
             
@@ -57,10 +65,11 @@ public class Login extends HttpServlet {
             response.addCookie(c_pass);
             response.addCookie(c_user);
             
-            response.getWriter().println("Hello " + account.getName()+ ", login sucessful!");
+            response.sendRedirect("View/Menu.jsp");
 
         } else {
-            response.getWriter().println("login failed");
+            request.setAttribute("error", "You input incorrect usermane or password");
+            request.getRequestDispatcher("View/Authentication/Login.jsp").forward(request, response);
         }
 
     }
