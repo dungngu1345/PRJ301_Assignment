@@ -5,18 +5,42 @@
 package dal;
 
 import entity.Student;
+import entity.Subject;
+import jakarta.servlet.jsp.jstl.sql.Result;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.apache.tomcat.dbcp.dbcp2.PoolingConnection;
 
 /**
  *
  * @author sonnt
  */
-public class StudentDBContext extends  DBContext<Student>{
+public class StudentDBContext extends DBContext<Student> {
+    
+    public ArrayList<Subject> getListSubject(){
+        ArrayList<Subject> subjects = new ArrayList<>();
+        String sql = """
+                     select subid, suname from [Subject]
+                     """;
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            while(rs.next()){
+                Subject s = new Subject();
+                s.setId(rs.getString("subid"));
+                s.setName(rs.getString("suname"));
+                subjects.add(s);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return subjects;
+    }
+    
     public ArrayList<Student> getByLession(int lid) {
         ArrayList<Student> students = new ArrayList<>();
         try {
@@ -41,7 +65,23 @@ public class StudentDBContext extends  DBContext<Student>{
 
     @Override
     public ArrayList<Student> list() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        ArrayList<Student> students = new ArrayList<>();
+        try {
+            String sql = """
+                                 select s.[sid], s.sname from Student s
+                                 """;
+            PreparedStatement stm = connection.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Student s = new Student();
+                s.setId(rs.getInt("sid"));
+                s.setName(rs.getString("sname"));
+                students.add(s);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return students;
     }
 
     @Override
@@ -62,5 +102,10 @@ public class StudentDBContext extends  DBContext<Student>{
     @Override
     public Student get(int id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    public static void main(String[] args) {
+        StudentDBContext sDB = new StudentDBContext();
+        ArrayList<Student> s = sDB.list();
+        System.out.println(s.size());
     }
 }

@@ -9,51 +9,39 @@ package entity;
  * @author Admin
  */
 public class Grade {
-    private int id;
-    private int eid;
-    private int sid;
-    private int score;
+    private String score, weight, name, subjectName;
 
-    public Grade() {
-    }
-
-    public Grade(int id, int eid, int sid, int score) {
-        this.id = id;
-        this.eid = eid;
-        this.sid = sid;
-        this.score = score;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getEid() {
-        return eid;
-    }
-
-    public void setEid(int eid) {
-        this.eid = eid;
-    }
-
-    public int getSid() {
-        return sid;
-    }
-
-    public void setSid(int sid) {
-        this.sid = sid;
-    }
-
-    public int getScore() {
+    public String getScore() {
         return score;
     }
 
-    public void setScore(int score) {
+    public void setScore(String score) {
         this.score = score;
     }
+
+    public String getWeight() {
+        return weight;
+    }
+
+    public void setWeight(String weight) {
+        this.weight = weight;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSubjectName() {
+        return subjectName;
+    }
+
+    public void setSubjectName(String subjectName) {
+        this.subjectName = subjectName;
+    }
+    
     
 }

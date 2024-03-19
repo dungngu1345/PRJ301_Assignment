@@ -2,7 +2,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-
 package controller.authentication;
 
 import dal.AccountDBContext;
@@ -21,8 +20,7 @@ import jakarta.servlet.http.HttpSession;
  * @author Admin
  */
 public class Login extends HttpServlet {
-   
-   
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -40,41 +38,24 @@ public class Login extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        
-        AccountDBContext db = new AccountDBContext();
-        Account account = db.getByUsernamePassword(username, password);
-
-        if (account != null) {
-            if (account.getLid() == null) {
-                String stu = account.getSid();
-                request.setAttribute("stu", stu);
-            }
-            if (account.getSid()== null) {
-                String lec = account.getSid();
-                request.setAttribute("lec", lec);
-            }
+        String user = request.getParameter("username");
+        String pass = request.getParameter("password");
+        AccountDBContext accDB = new AccountDBContext();
+        Account a = accDB.getByUsernamePassword(user, pass);
+        if (a != null) {
             HttpSession session = request.getSession();
-            session.setAttribute("account", account);
-            
-            Cookie c_user = new Cookie("username", username);
-            Cookie c_pass = new Cookie("password", password);
-            c_user.setMaxAge(3600*2);
-            c_pass.setMaxAge(3600*2);
-            response.addCookie(c_pass);
-            response.addCookie(c_user);
-            
-            response.sendRedirect("View/Menu.jsp");
-
+            session.setAttribute("account", a);
+            request.setAttribute("account", a);
+            request.getRequestDispatcher("View/Menu.jsp").forward(request, response);
         } else {
-            request.setAttribute("error", "You input incorrect usermane or password");
-            request.getRequestDispatcher("View/Authentication/Login.jsp").forward(request, response);
+            response.getWriter().print("Thong tin tai khoan hoac mat khau bi sai");
         }
 
     }
-    /** 
+
+    /**
      * Returns a short description of the servlet.
+     *
      * @return a String containing servlet description
      */
     @Override

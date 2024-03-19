@@ -4,6 +4,7 @@
  */
 package entity;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -16,19 +17,7 @@ public class Attendence {
     private Lession lession;
     private String description;
     private boolean present;
-    private Date time;
-
-    public Attendence() {
-    }
-
-    public Attendence(int id, Student student, Lession lession, String description, boolean present, Date time) {
-        this.id = id;
-        this.student = student;
-        this.lession = lession;
-        this.description = description;
-        this.present = present;
-        this.time = time;
-    }
+    private Timestamp time;
 
     public int getId() {
         return id;
@@ -70,12 +59,13 @@ public class Attendence {
         this.present = present;
     }
 
-    public Date getTime() {
+    public Timestamp getTime() {
         return time;
     }
 
-    public void setTime(Date time) {
+    public void setTime(Timestamp time) {
         this.time = time;
     }
+
   
 }

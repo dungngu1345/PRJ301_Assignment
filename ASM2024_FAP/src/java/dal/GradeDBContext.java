@@ -5,7 +5,6 @@
 package dal;
 
 import entity.Grade;
-import entity.Student;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,22 +17,28 @@ import java.util.logging.Logger;
  * @author Admin
  */
 public class GradeDBContext extends DBContext<Grade>{
-    public ArrayList<Grade> getGradebyStudent(int sid) {
+    public ArrayList<Grade> getGradebyStudent(int studentId, int subjectId) {
         ArrayList<Grade> grades = new ArrayList<>();
         try {
-            String sql = "select s.sid,s.sname,a.subid,a.name,a.wight,gra.score from Student s inner join Grade gra on s.sid = gra.sid\n"
-                    + "			  inner join Exam e on gra.eid = e.eid\n"
-                    + "			  inner join Assignment a on e.aid = a.aid\n"
-                    + "			  where s.sid = ?";
+            String sql = """
+                         select g.[sid], g.score, a.wight, a.[name], s.suname from Grade g
+                         join Exam e on e.eid = g.eid
+                         join Assignment a on a.aid = e.aid
+                         join [Subject] s on s.subid = a.subid
+                         where g.[sid] = ? and s.subid = ?
+                         """;
             PreparedStatement stm = connection.prepareStatement(sql);
-            stm.setInt(1,sid);
+            stm.setInt(1, studentId);
+            stm.setInt(2, subjectId);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 Grade s = new Grade();
-                s.setId(rs.getInt("sid"));
+                s.setScore(rs.getString("score"));
+                s.setWeight(rs.getString("wight"));
+                s.setName(rs.getString("name"));
+                s.setSubjectName(rs.getString("suname"));
                 grades.add(s);
             }
-
         } catch (SQLException ex) {
             Logger.getLogger(StudentDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -63,5 +68,9 @@ public class GradeDBContext extends DBContext<Grade>{
     public Grade get(int id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
+    public static void main(String[] args) {
+        GradeDBContext gDB = new GradeDBContext();
+        ArrayList<Grade> g = gDB.getGradebyStudent(1, 1);
+        System.out.println(g.size());
+    }
 }

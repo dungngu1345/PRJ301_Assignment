@@ -47,40 +47,78 @@
             </style>
         </head>
         <body>
-            
-            <table class="table">
-                <tr>
-                    <th>GRADE CATEGORY</th>
-                    <th>GRADE ITEM</th>
-                    <th>WEIGHT</th>
-                    <th>VALUE</th>
-                    <th>COMMENT</th>
-                </tr>
-                <tr>
-                    <td rowspan="2">Computer Project</td>
-                    <td>Computer Project</td>
-                    <td>15.0 %</td>
-                    <td><!-- Value here --></td>
-                    <td><!-- Comment here --></td>
-                </tr>
-                <tr class="total-row">
-                    <td>Total</td>
-                    <td>15.0 %</td>
-                    <td><!-- Total value here --></td>
-                    <td></td>
-                </tr>
-                <!-- More rows for Assignment, Progress Test, and Final Exam -->
-                <tr class="course-total">
-                    <td colspan="2">COURSE TOTAL</td>
-                    <td>AVERAGE</td>
-                    <td><!-- Average here --></td>
-                    <td></td>
-                </tr>
-                <tr class="course-total">
-                    <td colspan="4">STATUS</td>
-                    <td>STUDYING</td>
-                </tr>
-            </table>
+            <form action="score" method="post" id="form" onchange="document.getElementById('form').submit()">
+                <table>
+                    <tr>
+                        <td>
+                            StudentId:
+                            <select name="studentId">
+                                <c:forEach items="${requestScope.students}" var="s">
+                                    <option value="${s.id}"
+                                            <c:if test="${studentId eq s.id}">
+                                                selected ="selected"
+                                            </c:if>
+                                            >
+                                        ${s.name}-${s.id}
+                                    </option>
+                                </c:forEach>
+                            </select> 
+                        </td>
+                        <td>
+                            SubjectId:
+                            <select name="subjectId">
+                                <c:forEach items="${requestScope.subjects}" var="s">
+                                    <option value="${s.id}"
+                                            <c:if test="${subjectId eq s.id}">
+                                                selected ="selected"
+                                            </c:if>
+                                            >
+                                        ${s.name}
+                                    </option>
+                                </c:forEach>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+
+
+            </form>
+
+            <c:if test="${requestScope.studentId ne null}">
+                <table class="table">
+                    <tr>
+                        <th>GRADE ITEM</th>
+                        <th>WEIGHT</th>
+                        <th>VALUE</th>
+                        <th>COMMENT</th>
+                    </tr>
+                    <c:forEach items="${requestScope.grades}" var="g">
+                        <tr>
+                            <td>
+                                ${g.name}
+                            </td>
+                            <td>
+                                ${g.weight}
+                            </td>
+                            <td>
+                                ${g.score}
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                    </c:forEach>
+
+                    <!-- More rows for Assignment, Progress Test, and Final Exam -->
+                    <tr class="course-total">
+                        <td rowspan="2">COURSE TOTAL</td>
+                    </tr>
+                    <tr class="course-total">
+                        <td colspan="1">STATUS</td>
+                        <td colspan="2">${average}</td>
+                    </tr>
+                </table>
+            </c:if>
+
 
         </body>
     </html>

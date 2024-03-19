@@ -81,9 +81,8 @@
     </div>
     <h3 class="orangeTitle">Academic Information</h3>
     <div class="view">
-
-        <a href="/ASM2024_FAP/timetable?id=${les.id}">View TimeTable</a> <br/>
-        <a href="">View Score</a>
+        <a href="/ASM2024_FAP/timetable?id=${account.lid}">View TimeTable</a> <br/>
+        <a href="/ASM2024_FAP/score">View Score</a>
     </div>
 
 </body>

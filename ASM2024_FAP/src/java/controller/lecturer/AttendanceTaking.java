@@ -24,7 +24,7 @@ public class AttendanceTaking extends BaseRequiredAuthenticationController {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp, Account account) throws ServletException, IOException {
-        int leid = Integer.parseInt(req.getParameter("id"));
+        int leid = Integer.parseInt(req.getParameter("lessionId"));
         LessionDBContext db = new LessionDBContext();
         ArrayList<Student> students = db.getStudentsByLession(leid);
         ArrayList<Attendence> atts = new ArrayList<>();
@@ -39,14 +39,16 @@ public class AttendanceTaking extends BaseRequiredAuthenticationController {
             atts.add(a);
         }
         db.getAttendenceby(leid, atts);
-        resp.sendRedirect("att?id=" + leid);
+        resp.sendRedirect("att?lessionId=" + leid);
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp, Account account) throws ServletException, IOException {
-        int leid = Integer.parseInt(req.getParameter("id"));
+        int lessionId = Integer.parseInt(req.getParameter("lessionId"));
         LessionDBContext db = new LessionDBContext();
-        ArrayList<Attendence> atts = db.getAttendencesByLession(leid);
+        ArrayList<Attendence> atts = db.getAttendencesByLession(lessionId);
+        
+        req.setAttribute("lessionId", lessionId);
         req.setAttribute("atts", atts);
         req.getRequestDispatcher("View/Attendence/Attendence.jsp").forward(req, resp);
     }

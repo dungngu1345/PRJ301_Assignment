@@ -9,41 +9,42 @@ package entity;
  * @author Admin
  */
 public class Account {
-    private String Username;
-    private String PassWord;
-    private String Name;
+    private String username, password, displayname;
+    private int lid;
 
-    public Account() {
+    public int getLid() {
+        return lid;
     }
 
-    public Account(String Username, String PassWord, String Name) {
-        this.Username = Username;
-        this.PassWord = PassWord;
-        this.Name = Name;
+    public void setLid(int lid) {
+        this.lid = lid;
+    }
+    
+
+    public String getDisplayname() {
+        return displayname;
+    }
+
+    public void setDisplayname(String displayname) {
+        this.displayname = displayname;
     }
 
     public String getUsername() {
-        return Username;
+        return username;
     }
 
-    public void setUsername(String Username) {
-        this.Username = Username;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getPassWord() {
-        return PassWord;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPassWord(String PassWord) {
-        this.PassWord = PassWord;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public String getName() {
-        return Name;
-    }
-
-    public void setName(String Name) {
-        this.Name = Name;
-    }
     
+
 }

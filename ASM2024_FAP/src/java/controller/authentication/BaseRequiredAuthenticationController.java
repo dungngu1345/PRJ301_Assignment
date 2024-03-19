@@ -5,13 +5,10 @@
 
 package controller.authentication;
 
-import dal.AccountDBContext;
 import entity.Account;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -26,32 +23,6 @@ public abstract class BaseRequiredAuthenticationController extends HttpServlet {
     private Account getAuthenticatedAccount(HttpServletRequest req)
     {
       Account account = (Account) req.getSession().getAttribute("account");
-      if(account == null)
-      {
-          Cookie[] cookies = req.getCookies();
-          if(cookies!=null)
-          {
-              String username = null;
-              String password = null;
-              for (Cookie cooky : cookies) {
-                  if(cooky.getName().equals("username"))
-                      username = cooky.getValue();
-                  
-                  if(cooky.getName().equals("password"))
-                      password = cooky.getValue();
-                  
-                  if(username !=null && password!=null)
-                      break;
-              }
-              
-              if(username !=null && password!=null)
-              {
-                  AccountDBContext db = new AccountDBContext();
-                  account = db.getByUsernamePassword(username, password);
-                  req.getSession().setAttribute("account", account);
-              }
-          }
-      }
       return account;
     }
     
